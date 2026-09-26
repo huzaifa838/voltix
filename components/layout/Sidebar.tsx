@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import type { Route } from 'next'
 import { usePathname } from 'next/navigation'
 import {
   Activity,
@@ -14,7 +15,18 @@ import {
   Settings,
 } from 'lucide-react'
 
-const MAIN_NAV = [
+type NavItem = {
+  href: string
+  label: string
+  icon: React.ComponentType<{ className?: string }>
+}
+
+type MoodNavItem = {
+  href: string
+  label: string
+}
+
+const MAIN_NAV: NavItem[] = [
   {
     href: '/',
     label: 'Home',
@@ -32,7 +44,7 @@ const MAIN_NAV = [
   },
 ]
 
-const SYSTEM_NAV = [
+const SYSTEM_NAV: NavItem[] = [
   {
     href: '/queue',
     label: 'Queue',
@@ -55,7 +67,7 @@ const SYSTEM_NAV = [
   },
 ]
 
-const MOOD_NAV = [
+const MOOD_NAV: MoodNavItem[] = [
   {
     href: '/playlist/mood-chill',
     label: 'Chill',
@@ -163,18 +175,16 @@ export default function Sidebar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`group relative flex items-center gap-3 border px-3 py-2 transition ${
-                    active
-                      ? 'border-cyan-400/20 bg-cyan-400/[0.06] text-cyan-300'
-                      : 'border-transparent text-slate-600 hover:border-white/5 hover:bg-white/[0.02] hover:text-slate-300'
-                  }`}
+                  className={`group relative flex items-center gap-3 border px-3 py-2 transition ${active
+                    ? 'border-cyan-400/20 bg-cyan-400/[0.06] text-cyan-300'
+                    : 'border-transparent text-slate-600 hover:border-white/5 hover:bg-white/[0.02] hover:text-slate-300'
+                    }`}
                 >
                   <span
-                    className={`h-1.5 w-1.5 shrink-0 border transition ${
-                      active
-                        ? 'border-cyan-300 bg-cyan-300 shadow-[0_0_7px_rgba(103,232,249,0.6)]'
-                        : 'border-slate-700 group-hover:border-cyan-400/50'
-                    }`}
+                    className={`h-1.5 w-1.5 shrink-0 border transition ${active
+                      ? 'border-cyan-300 bg-cyan-300 shadow-[0_0_7px_rgba(103,232,249,0.6)]'
+                      : 'border-slate-700 group-hover:border-cyan-400/50'
+                      }`}
                   />
 
                   <span className="truncate font-mono text-[9px] uppercase tracking-wider">
@@ -209,7 +219,7 @@ export default function Sidebar() {
           </div>
 
           <div className="mt-2 font-mono text-[8px] text-slate-700">
-            LOCAL // READY
+            LOCAL {'//'} READY
           </div>
         </div>
 
@@ -245,27 +255,22 @@ function SidebarLink({
   label,
   icon: Icon,
   active,
-}: {
-  href: string
-  label: string
-  icon: React.ComponentType<{ className?: string }>
+}: NavItem & {
   active: boolean
 }) {
   return (
     <Link
       href={href}
-      className={`group relative flex items-center gap-3 border px-3 py-2.5 transition ${
-        active
-          ? 'border-cyan-400/20 bg-cyan-400/[0.06] text-cyan-300'
-          : 'border-transparent text-slate-600 hover:border-white/5 hover:bg-white/[0.02] hover:text-slate-300'
-      }`}
+      className={`group relative flex items-center gap-3 border px-3 py-2.5 transition ${active
+        ? 'border-cyan-400/20 bg-cyan-400/[0.06] text-cyan-300'
+        : 'border-transparent text-slate-600 hover:border-white/5 hover:bg-white/[0.02] hover:text-slate-300'
+        }`}
     >
       <Icon
-        className={`h-3.5 w-3.5 shrink-0 transition ${
-          active
-            ? 'text-cyan-300 drop-shadow-[0_0_6px_rgba(103,232,249,0.5)]'
-            : 'text-slate-700 group-hover:text-cyan-400/70'
-        }`}
+        className={`h-3.5 w-3.5 shrink-0 transition ${active
+          ? 'text-cyan-300 drop-shadow-[0_0_6px_rgba(103,232,249,0.5)]'
+          : 'text-slate-700 group-hover:text-cyan-400/70'
+          }`}
       />
 
       <span className="font-mono text-[9px] uppercase tracking-[0.12em]">
@@ -283,10 +288,16 @@ function SidebarLink({
   )
 }
 
-function isActivePath(pathname: string, href: string) {
+function isActivePath(
+  pathname: string,
+  href: string,
+) {
   if (href === '/') {
     return pathname === '/'
   }
 
-  return pathname === href || pathname.startsWith(`${href}/`)
+  return (
+    pathname === href ||
+    pathname.startsWith(`${href}/`)
+  )
 }

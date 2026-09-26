@@ -68,7 +68,8 @@ export default function LikedPage() {
             <TrackRow
               key={track.id}
               track={track}
-              index={i + 1}
+              index={i}
+              queue={likedTracks}
               onPlay={() => playTrack(track)}
               onLike={() => handleUnlike(track.id)}
               isLiked={true}

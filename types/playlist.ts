@@ -31,13 +31,24 @@ export interface UserPlaylist extends Playlist {
   updatedAt?: string
 }
 
+export interface Album {
+  id: string
+  name: string
+  artistName: string
+  artworkUrl?: string
+  year?: number
+  trackCount?: number
+}
+
 export interface Mood {
   id: string
   name: string
   description: string
-  coverUrl: string
-  color: string
-  accentColor: string
-  trackCount: number
-  playlistId: string
+
+  coverUrl?: string
+  color?: string
+  accentColor?: string
+
+  trackCount?: number
+  playlistId?: string
 }

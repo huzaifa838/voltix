@@ -1,27 +1,9 @@
-// ==============================================
-// VOLTIX AUDIO OS — HOME / COMMAND CENTER
-// ==============================================
-//
-// Main dashboard for the personal music system.
-//
-// Includes:
-// - Hacker/SOC hero
-// - Mood channels
-// - Recently indexed tracks
-// - Audio system telemetry
-// - Quick access controls
-//
-// REAL AUDIO:
-// Track data comes from data/mock/tracks.ts
-//
-// BACKEND TODO:
-// Replace MOCK_TRACKS with service/API data later.
-//
-// ==============================================
+
 
 'use client'
 
 import Link from 'next/link'
+import type { Route } from 'next'
 
 import {
   Activity,
@@ -1095,7 +1077,7 @@ export default function HomePage() {
                 />
 
                 <QuickLink
-                  href="/stats"
+                  href="/analytics"
                   label="ANALYTICS"
                 />
 
@@ -1276,7 +1258,7 @@ function QuickLink({
   href,
   label,
 }: {
-  href: string
+  href: Route
   label: string
 }) {
 

@@ -6,10 +6,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-
-  experimental: {
-    typedRoutes: true,
-  },
 }
 
 export default nextConfig

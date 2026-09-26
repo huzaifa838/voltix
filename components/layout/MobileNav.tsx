@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import type { Route } from 'next'
 import { usePathname } from 'next/navigation'
 import {
   BarChart3,
@@ -12,43 +13,47 @@ import {
   Settings,
 } from 'lucide-react'
 
-const NAV_ITEMS = [
-  {
-    href: '/',
-    label: 'Home',
-    icon: Home,
-  },
-  {
-    href: '/search',
-    label: 'Search',
-    icon: Search,
-  },
-  {
-    href: '/library',
-    label: 'Library',
-    icon: Library,
-  },
-  {
-    href: '/queue',
-    label: 'Queue',
-    icon: ListMusic,
-  },
-  {
-    href: '/history',
-    label: 'History',
-    icon: Clock3,
-  },
-  {
-    href: '/analytics',
-    label: 'Stats',
-    icon: BarChart3,
-  },
-  {
-    href: '/settings',
-    label: 'Settings',
-    icon: Settings,
-  },
-]
+const NAV_ITEMS: {
+  href: Route
+  label: string
+  icon: React.ComponentType<{ className?: string }>
+}[] = [
+    {
+      href: '/',
+      label: 'Home',
+      icon: Home,
+    },
+    {
+      href: '/search',
+      label: 'Search',
+      icon: Search,
+    },
+    {
+      href: '/library',
+      label: 'Library',
+      icon: Library,
+    },
+    {
+      href: '/queue',
+      label: 'Queue',
+      icon: ListMusic,
+    },
+    {
+      href: '/history',
+      label: 'History',
+      icon: Clock3,
+    },
+    {
+      href: '/analytics',
+      label: 'Stats',
+      icon: BarChart3,
+    },
+    {
+      href: '/settings',
+      label: 'Settings',
+      icon: Settings,
+    },
+  ]
 
 export default function MobileNav() {
   const pathname = usePathname()
@@ -68,17 +73,16 @@ export default function MobileNav() {
               item.href === '/'
                 ? pathname === '/'
                 : pathname === item.href ||
-                  pathname.startsWith(`${item.href}/`)
+                pathname.startsWith(`${item.href}/`)
 
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative flex min-w-[64px] flex-1 flex-col items-center justify-center gap-1 px-2 py-2.5 transition ${
-                  isActive
+                className={`relative flex min-w-[64px] flex-1 flex-col items-center justify-center gap-1 px-2 py-2.5 transition ${isActive
                     ? 'text-cyan-300'
                     : 'text-slate-600 hover:text-slate-300'
-                }`}
+                  }`}
               >
                 {isActive && (
                   <>
@@ -88,15 +92,13 @@ export default function MobileNav() {
                 )}
 
                 <Icon
-                  className={`relative z-10 h-4 w-4 ${
-                    isActive ? 'drop-shadow-[0_0_6px_rgba(103,232,249,0.5)]' : ''
-                  }`}
+                  className={`relative z-10 h-4 w-4 ${isActive ? 'drop-shadow-[0_0_6px_rgba(103,232,249,0.5)]' : ''
+                    }`}
                 />
 
                 <span
-                  className={`relative z-10 font-mono text-[7px] uppercase tracking-wider ${
-                    isActive ? 'text-cyan-300' : 'text-slate-600'
-                  }`}
+                  className={`relative z-10 font-mono text-[7px] uppercase tracking-wider ${isActive ? 'text-cyan-300' : 'text-slate-600'
+                    }`}
                 >
                   {item.label}
                 </span>

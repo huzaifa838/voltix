@@ -217,7 +217,7 @@ export default function AnalyticsPage() {
                       </div>
 
                       <div className="shrink-0 font-mono text-[9px] text-slate-600">
-                        {mood.count} // {percentage}%
+                        {mood.count} {'//'} {percentage}%
                       </div>
                     </div>
 
@@ -338,7 +338,7 @@ export default function AnalyticsPage() {
 
         {/* Technical footer */}
         <div className="flex flex-col gap-2 border-t border-white/5 pt-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-700 sm:flex-row sm:items-center sm:justify-between">
-          <span>VOLTIX AUDIO OS // ANALYTICS CORE</span>
+          <span>VOLTIX AUDIO OS {'//'} ANALYTICS CORE</span>
 
           <span className="flex items-center gap-2 text-cyan-500/40">
             <AudioLines className="h-3 w-3" />

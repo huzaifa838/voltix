@@ -23,7 +23,7 @@ export default function TerminalPage() {
   const [tracks, setTracks] = useState<Track[]>([])
   const terminalRef = useRef<HTMLDivElement>(null)
 
-  const { currentTrack, isPlaying, togglePlay, next, previous, playTrack, setQueue } = usePlayerStore()
+  const { currentTrack, isPlaying, togglePlay, next, previous, playTrack, } = usePlayerStore()
 
   useEffect(() => {
     const loadTracks = async () => {
@@ -195,7 +195,7 @@ export default function TerminalPage() {
             className="flex-1 overflow-y-auto p-4 space-y-1 text-sm text-[#00F5B8]"
           >
             <div>VOLTIX AUDIO OS TERMINAL v1.0</div>
-            <div>Type "help" for available commands</div>
+            <div>Type &quot;help&quot; for available commands</div>
             <div />
 
             {commands.map((cmd, i) => (
@@ -232,10 +232,18 @@ export default function TerminalPage() {
         <div className="mt-8 p-4 bg-[rgba(0,245,184,0.05)] border border-[rgba(0,245,184,0.2)] rounded text-sm text-[#8DAAB7]">
           <p className="mb-2">🎵 Terminal commands are connected to your player:</p>
           <ul className="list-inside space-y-1 text-xs">
-            <li>• "play night drive" - searches and plays tracks</li>
-            <li>• "play" - toggle play/pause</li>
-            <li>• "next" / "prev" - navigate tracks</li>
-            <li>• "list" - show available tracks</li>
+            <li>
+              • &quot;play night drive&quot; - searches and plays tracks
+            </li>
+            <li>
+              • &quot;play&quot; - toggle play/pause
+            </li>
+            <li>
+              • &quot;next&quot; / &quot;prev&quot; - navigate tracks
+            </li>
+            <li>
+              • &quot;list&quot; - show available tracks
+            </li>
           </ul>
         </div>
       </div>

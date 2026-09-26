@@ -15,6 +15,10 @@ interface TrackRowProps {
   track: Track
   index: number
   queue: Track[]
+
+  onPlay?: () => void
+  onLike?: () => void
+  isLiked?: boolean
 }
 
 function formatDuration(seconds: number) {
@@ -34,6 +38,9 @@ export default function TrackRow({
   track,
   index,
   queue,
+  onPlay,
+  onLike,
+  isLiked = false,
 }: TrackRowProps) {
   const currentTrack = usePlayerStore(
     (state) => state.currentTrack,
@@ -54,56 +61,50 @@ export default function TrackRow({
   const active = currentTrack?.id === track.id
 
   const handlePlay = () => {
-    /*
-     * Always pass the surrounding queue.
-     *
-     * This is important because selecting an individual
-     * track should still allow NEXT to continue through
-     * the playlist/library.
-     */
+    if (onPlay) {
+      onPlay()
+      return
+    }
+
     playQueue(queue, track)
   }
 
   return (
     <div
-      className={`group relative flex min-h-[68px] items-center gap-3 border-b border-white/[0.035] px-3 transition md:px-5 ${
-        active
-          ? 'bg-cyan-400/[0.045]'
-          : 'hover:bg-white/[0.025]'
-      }`}
+      className={`group relative flex min-h-[68px] items-center gap-3 border-b border-white/[0.035] px-3 transition md:px-5 ${active
+        ? 'bg-cyan-400/[0.045]'
+        : 'hover:bg-white/[0.025]'
+        }`}
     >
       {/* Active signal indicator */}
       <div className="hidden w-5 shrink-0 items-center justify-center md:flex">
         {active ? (
           <div className="flex h-4 items-end gap-[2px]">
             <span
-              className={`w-[2px] rounded-full bg-cyan-300 ${
-                isPlaying
-                  ? 'animate-[scaleY_0.7s_ease-in-out_infinite]'
-                  : 'h-2'
-              }`}
+              className={`w-[2px] rounded-full bg-cyan-300 ${isPlaying
+                ? 'animate-[scaleY_0.7s_ease-in-out_infinite]'
+                : 'h-2'
+                }`}
               style={{
                 height: isPlaying ? '70%' : '50%',
               }}
             />
 
             <span
-              className={`w-[2px] rounded-full bg-cyan-300 ${
-                isPlaying
-                  ? 'animate-[scaleY_0.55s_ease-in-out_infinite]'
-                  : 'h-3'
-              }`}
+              className={`w-[2px] rounded-full bg-cyan-300 ${isPlaying
+                ? 'animate-[scaleY_0.55s_ease-in-out_infinite]'
+                : 'h-3'
+                }`}
               style={{
                 height: isPlaying ? '100%' : '75%',
               }}
             />
 
             <span
-              className={`w-[2px] rounded-full bg-cyan-300 ${
-                isPlaying
-                  ? 'animate-[scaleY_0.8s_ease-in-out_infinite]'
-                  : 'h-1.5'
-              }`}
+              className={`w-[2px] rounded-full bg-cyan-300 ${isPlaying
+                ? 'animate-[scaleY_0.8s_ease-in-out_infinite]'
+                : 'h-1.5'
+                }`}
               style={{
                 height: isPlaying ? '55%' : '40%',
               }}
@@ -130,17 +131,15 @@ export default function TrackRow({
         <img
           src={track.artworkUrl || '/images/default.jpg'}
           alt=""
-          className={`h-full w-full object-cover transition ${
-            active ? 'opacity-65' : 'opacity-55 group-hover:opacity-75'
-          }`}
+          className={`h-full w-full object-cover transition ${active ? 'opacity-65' : 'opacity-55 group-hover:opacity-75'
+            }`}
         />
 
         <div className="absolute inset-0 bg-cyan-400/[0.03]" />
 
         <div
-          className={`absolute inset-0 flex items-center justify-center transition ${
-            active || 'group-hover:opacity-100'
-          }`}
+          className={`absolute inset-0 flex items-center justify-center transition ${active || 'group-hover:opacity-100'
+            }`}
         >
           {active && isPlaying ? (
             <Pause className="h-4 w-4 fill-cyan-300 text-cyan-300" />
@@ -161,11 +160,10 @@ export default function TrackRow({
         className="min-w-0 flex-1 text-left"
       >
         <div
-          className={`truncate text-xs font-medium transition md:text-sm ${
-            active
-              ? 'text-cyan-200'
-              : 'text-slate-300 group-hover:text-white'
-          }`}
+          className={`truncate text-xs font-medium transition md:text-sm ${active
+            ? 'text-cyan-200'
+            : 'text-slate-300 group-hover:text-white'
+            }`}
         >
           {track.title}
         </div>
@@ -216,11 +214,22 @@ export default function TrackRow({
       {/* Like */}
       <button
         type="button"
-        className="hidden h-8 w-8 shrink-0 items-center justify-center border border-transparent text-slate-700 opacity-0 transition hover:border-cyan-400/15 hover:text-cyan-300 md:flex md:group-hover:opacity-100"
-        aria-label={`Like ${track.title}`}
-        title="Like"
+        onClick={onLike}
+        className={`hidden h-8 w-8 shrink-0 items-center justify-center border transition md:flex ${isLiked
+            ? 'border-cyan-400/20 text-cyan-300 opacity-100'
+            : 'border-transparent text-slate-700 opacity-0 hover:border-cyan-400/15 hover:text-cyan-300 md:group-hover:opacity-100'
+          }`}
+        aria-label={
+          isLiked
+            ? `Unlike ${track.title}`
+            : `Like ${track.title}`
+        }
+        title={isLiked ? 'Unlike' : 'Like'}
       >
-        <Heart className="h-3.5 w-3.5" />
+        <Heart
+          className={`h-3.5 w-3.5 ${isLiked ? 'fill-current' : ''
+            }`}
+        />
       </button>
 
       {/* More */}
