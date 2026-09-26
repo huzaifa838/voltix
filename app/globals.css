@@ -1,26 +1,316 @@
 @import "tailwindcss";
 
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #020607;
+  --foreground: #e8f3f5;
+
+  --cyan: #22d3ee;
+  --cyan-soft: rgba(34, 211, 238, 0.12);
+
+  --panel: #05090a;
+  --border: rgba(255, 255, 255, 0.06);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  width: 100%;
+  height: 100%;
+  background: var(--background);
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  background:
+    radial-gradient(
+      circle at 20% 0%,
+      rgba(34, 211, 238, 0.025),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 90% 100%,
+      rgba(59, 130, 246, 0.025),
+      transparent 35%
+    ),
+    var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.2);
+  color: #ffffff;
+}
+
+/* -------------------------------------------------------
+   Scrollbars
+------------------------------------------------------- */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(34, 211, 238, 0.15) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.15);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.3);
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* -------------------------------------------------------
+   Range inputs
+------------------------------------------------------- */
+
+input[type='range'] {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  height: 3px;
+  cursor: pointer;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  margin-top: -3.5px;
+  cursor: pointer;
+  border: 1px solid rgba(103, 232, 249, 0.8);
+  border-radius: 50%;
+  background: #67e8f9;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.35);
+}
+
+input[type='range']::-moz-range-track {
+  height: 3px;
+  cursor: pointer;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  border: 1px solid rgba(103, 232, 249, 0.8);
+  border-radius: 50%;
+  background: #67e8f9;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.35);
+}
+
+/* -------------------------------------------------------
+   Focus
+------------------------------------------------------- */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 1px solid rgba(103, 232, 249, 0.7);
+  outline-offset: 2px;
+}
+
+/* -------------------------------------------------------
+   Holographic utilities
+------------------------------------------------------- */
+
+.holo-grid {
+  background-image:
+    linear-gradient(
+      rgba(34, 211, 238, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(34, 211, 238, 0.035) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
+}
+
+.holo-scanlines {
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(34, 211, 238, 0.018) 4px
+  );
+}
+
+.holo-border {
+  border: 1px solid rgba(34, 211, 238, 0.12);
+}
+
+.holo-glow {
+  box-shadow:
+    0 0 30px rgba(34, 211, 238, 0.04),
+    inset 0 0 30px rgba(34, 211, 238, 0.015);
+}
+
+/* -------------------------------------------------------
+   System animations
+------------------------------------------------------- */
+
+@keyframes voltix-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes voltix-scan {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes voltix-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+    filter: blur(0);
+  }
+
+  50% {
+    opacity: 1;
+    filter: blur(1px);
+  }
+}
+
+@keyframes voltix-bars {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.voltix-pulse {
+  animation: voltix-pulse 1.8s ease-in-out infinite;
+}
+
+.voltix-glow {
+  animation: voltix-glow 2s ease-in-out infinite;
+}
+
+.voltix-scan {
+  animation: voltix-scan 5s linear infinite;
+}
+
+.voltix-bar {
+  transform-origin: bottom;
+  animation: voltix-bars 900ms ease-in-out infinite;
+}
+
+/* -------------------------------------------------------
+   Audio / media polish
+------------------------------------------------------- */
+
+audio {
+  display: none;
+}
+
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Prevent accidental text selection on player controls */
+.player-control,
+[data-player-control='true'] {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* -------------------------------------------------------
+   Mobile viewport behavior
+------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  body {
+    min-width: 0;
+  }
+}
+
+/* -------------------------------------------------------
+   Reduced motion
+------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

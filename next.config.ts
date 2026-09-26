@@ -1,7 +1,15 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  reactStrictMode: true,
 
-export default nextConfig;
+  images: {
+    unoptimized: true,
+  },
+
+  experimental: {
+    typedRoutes: true,
+  },
+}
+
+export default nextConfig
