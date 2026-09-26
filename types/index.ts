@@ -2,7 +2,11 @@ export interface Track {
   id: string
 
   title: string
+
+  artistId: string
   artistName: string
+
+  albumId: string
   albumName: string
 
   audioUrl: string

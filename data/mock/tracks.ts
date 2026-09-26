@@ -3,12 +3,12 @@ import type { Track } from '@/types'
 interface LocalTrackConfig {
   file: string
   mood:
-    | 'Chill'
-    | 'Depression'
-    | 'Sad'
-    | 'Relaxing'
-    | 'Time Pass'
-    | 'With Friends'
+  | 'Chill'
+  | 'Depression'
+  | 'Sad'
+  | 'Relaxing'
+  | 'Time Pass'
+  | 'With Friends'
 }
 
 const LOCAL_TRACKS: LocalTrackConfig[] = [
@@ -297,7 +297,11 @@ function createTrack(
 
     title,
 
+    artistId: 'unknown-artist',
+
     artistName: 'Unknown Artist',
+
+    albumId: 'my-music',
 
     albumName: 'My Music',
 

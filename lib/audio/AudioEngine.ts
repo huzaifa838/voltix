@@ -209,9 +209,11 @@ export function useAudioEngine(
 
   const currentTrackIdRef = useRef<string | null>(null)
 
-  const configRef = useRef(config)
+  const configRef = useRef<AudioEngineConfig>(config)
 
-  configRef.current = config
+  useEffect(() => {
+    configRef.current = config
+  }, [config])
 
   /*
    * Create the global audio element once.
