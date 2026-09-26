@@ -23,6 +23,7 @@ export interface Track {
 
     liked?: boolean
 }
+
 export interface Mood {
     id: string
     name: string
@@ -35,27 +36,36 @@ export interface Mood {
     trackCount?: number
     playlistId?: string
 }
+export interface User {
+    id: string
+    name: string
+    email: string
+
+    avatarUrl?: string
+
+    preferredMoods?: string[]
+}
+
 export interface ListeningHistoryEntry {
-  id: string
-  trackId: string
-  userId: string
-  playedAt: Date
-  durationPlayed: number
+    id: string
+    trackId: string
+    userId: string
+    playedAt: Date | string
+    durationPlayed: number
 }
 
 export interface Artist {
-  id: string
-  name: string
+    id: string
+    name: string
 
-  avatarUrl?: string
-  artworkUrl?: string
+    avatarUrl?: string
+    artworkUrl?: string
 
-  bio?: string
-  genres?: string[]
+    bio?: string
+    genres?: string[]
 
-  trackCount?: number
+    trackCount?: number
 }
-
 
 export interface Album {
     id: string
@@ -78,10 +88,45 @@ export interface Album {
 
 export interface Playlist {
     id: string
+
+    name: string
+    title?: string
+
+    description?: string
+
+    coverUrl?: string
+    artworkUrl?: string
+
+    /*
+     * Playlist mock data stores track IDs,
+     * not complete Track objects.
+     */
+    tracks: string[]
+
+    trackCount?: number
+    duration?: number
+
+    isPublic?: boolean
+}
+
+export interface UserPlaylist {
+    id: string
+
     name: string
     description?: string
+
+    coverUrl?: string
     artworkUrl?: string
-    tracks: Track[]
+
+    tracks: string[]
+
+    trackCount: number
+    duration: number
+
+    isPublic: boolean
+
+    createdAt: string
+    updatedAt: string
 }
 
 export type RepeatMode = 'off' | 'all' | 'one'
