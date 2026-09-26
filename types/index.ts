@@ -1,51 +1,79 @@
 export interface Track {
-  id: string
+    id: string
 
-  title: string
+    title: string
 
-  artistId: string
-  artistName: string
+    artistId: string
+    artistName: string
 
-  albumId: string
-  albumName: string
+    albumId: string
+    albumName: string
 
-  audioUrl: string
-  artworkUrl: string
+    audioUrl: string
+    artworkUrl: string
 
-  duration: number
-  year: number
+    duration: number
+    year: number
 
-  format: string
-  bitrate: string
+    format: string
+    bitrate: string
 
-  genre?: string
-  mood?: string
+    genre?: string
+    mood?: string
 
-  liked?: boolean
+    liked?: boolean
+}
+export interface Mood {
+    id: string
+    name: string
+    description: string
+
+    coverUrl?: string
+    color?: string
+    accentColor?: string
+
+    trackCount?: number
+    playlistId?: string
 }
 
 export interface Artist {
   id: string
   name: string
+
+  avatarUrl?: string
   artworkUrl?: string
+
+  bio?: string
+  genres?: string[]
+
   trackCount?: number
 }
 
 export interface Album {
-  id: string
-  name: string
-  artistName: string
-  artworkUrl?: string
-  year?: number
-  trackCount?: number
+    id: string
+
+    title: string
+    name?: string
+
+    artistId: string
+    artistName: string
+
+    coverUrl?: string
+    artworkUrl?: string
+
+    year?: number
+    trackCount?: number
+    duration?: number
+
+    tracks?: string[]
 }
 
 export interface Playlist {
-  id: string
-  name: string
-  description?: string
-  artworkUrl?: string
-  tracks: Track[]
+    id: string
+    name: string
+    description?: string
+    artworkUrl?: string
+    tracks: Track[]
 }
 
 export type RepeatMode = 'off' | 'all' | 'one'

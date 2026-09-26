@@ -14,6 +14,7 @@ import Image from 'next/image'
 import { usePlayerStore } from '@/store/playerStore'
 import { Mood, Track } from '@/types'
 import { triggerSystemFX } from '@/components/hacker/SystemFX'
+import { getTracksByMood } from '@/data/mock/tracks'
 
 export default function HomePage() {
   const [moods, setMoods] = useState<Mood[]>([])
@@ -100,11 +101,13 @@ export default function HomePage() {
             MOOD PLAYLISTS
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {moods.map(mood => (
+            {moods.map((mood) => (
               <MoodCard
                 key={mood.id}
-                mood={mood}
-                onPlay={() => handlePlayMood(mood.id)}
+                name={mood.name}
+                description={mood.description}
+                tracks={getTracksByMood(mood.name)}
+                image={mood.coverUrl || '/images/default.jpg'}
               />
             ))}
           </div>
