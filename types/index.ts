@@ -35,6 +35,13 @@ export interface Mood {
     trackCount?: number
     playlistId?: string
 }
+export interface ListeningHistoryEntry {
+  id: string
+  trackId: string
+  userId: string
+  playedAt: Date
+  durationPlayed: number
+}
 
 export interface Artist {
   id: string
@@ -48,6 +55,7 @@ export interface Artist {
 
   trackCount?: number
 }
+
 
 export interface Album {
     id: string
